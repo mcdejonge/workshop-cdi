@@ -13,8 +13,8 @@ We zullen beginnen met het toevoegen van unittests voor de klassen `HealthCheckR
 Voeg aan je project een dependency op jUnit toe en schrijf een unittest voor de methode uit de klasse ``HealthCheckResource``.
 
 ### 1.2: `ItemResource`
-Schrijf voor iedere methode uit de klasse `ItemResource` een unittest. Omdat deze methode gebruik maakt van de `ItemService`
-en daar ook hard aan is gekopppeld, zal alleen de happy-flow getest kunnen worden. Voor nu is dat voldoende.
+Schrijf voor iedere methode uit de klasse `ItemResource` een zinnige unittest. Omdat deze methode gebruik maakt van de 
+`ItemService` en daar ook hard aan is gekopppeld, zal alleen de happy-flow getest kunnen worden. Voor nu is dat voldoende.
 
 Waarschijnlijk zul je nog wel tegen een probleem aanlopen bij het testen van de methodes die een `Response` teruggeven.
 Lees de stacktrace goed door en gebruik Google om een oplossing te vinden. Om je alvast in de goede richting te helpen: 
