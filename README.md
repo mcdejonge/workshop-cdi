@@ -22,4 +22,17 @@ een implementatie `Response` wordt door je JavaEE Container aangeleverd. In de c
 unittest, maak je geen gebruik van je JavaEE Container. Je zult dus een bijbehorende `Exceptie` kunnen
 verwachten, welke je kan terugvinden in de stacktrace. 
 
-## 2: 
+## 2: Toevoegen Dependency Injection
+In het vorige onderdeel heb je unittests geschreven en mogelijk liep je tegen het probleem aan dat je niet goed wist
+wat je nu eigenlijk moest testen. Waarschijnlijk kwam je niet veel verder dan het testen of het `Response` de te verwachtte
+status-code bevatte. Maar of ook daadwerkelijk de juiste methodes op de `ItemService`, met de juiste parameters werden aangeroepen, 
+heb je vast niet getest.
+
+In de huidige vorm is dat ook uitzonderlijk lastig te testen. Dit komt omdat de `ItemService` hard gekoppeld is
+aan de `ItemResource`. Wanneer je nu de `ItemResource` test, test je eigenlijk ook de `ItemService`. Buiten het probleem dat je
+nu niet eens kan testen of de `ItemResource` correct gebruik maakt van de `ItemService`, heb je daarmee ook het probleem
+dat je, wanneer een test faalt, niet goed weet of de fout nu in `ItemResource` of in de `ItemService` zit.
+
+We gaan dit probleem oplossen door de `ItemService` los te koppelen van de `ItemResource`, met behulp van Dependency Injection.
+Hiermee kunnen we de code beter laten voldoen aan de **D** van **SOLID**, het **D**pendency Inversion Principle. In het volgende
+onderdeel kunnen we vervolgens laten zien hoe we nu wel enkel de `ItemResource` kunnen testen.
