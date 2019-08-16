@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.validation.constraints.AssertFalse;
 import javax.ws.rs.core.Response;
 
 import java.util.List;
@@ -14,15 +13,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ItemResourceTest {
 
-    public static final String TEXT_ITEMS = "bread, butter";
-    public static final int ITEM_ID = 1;
-    public static final int HTTP_OK = 200;
-    public static final int HTTP_CREATED = 201;
-    private ItemResource itemResource;
+    private static final String TEXT_ITEMS = "bread, butter";
+    private static final int ITEM_ID = 1;
+    private static final int HTTP_OK = 200;
+    private static final int HTTP_CREATED = 201;
+
+    private ItemResource sut;
 
     @BeforeEach
     void setup() {
-        this.itemResource = new ItemResource();
+        this.sut = new ItemResource();
     }
 
     @Test
@@ -30,7 +30,7 @@ class ItemResourceTest {
         // Arrange
 
         // Act
-        String textItems = itemResource.getTextItems();
+        String textItems = sut.getTextItems();
 
         // Assert
         assertEquals(TEXT_ITEMS, textItems);
@@ -41,7 +41,7 @@ class ItemResourceTest {
         // Arrange
 
         // Act
-        Response response = itemResource.getJsonItems();
+        Response response = sut.getJsonItems();
 
         // Assert
         Assertions.assertEquals(HTTP_OK, response.getStatus());
@@ -53,7 +53,7 @@ class ItemResourceTest {
         // Arrange
         var item = new ItemDTO(37, "Chocolate spread", new String[]{"Breakfast, Lunch"}, "Not to much");
         // Act
-        Response response = itemResource.addItem(item);
+        Response response = sut.addItem(item);
 
         // Assert
         Assertions.assertEquals(HTTP_CREATED, response.getStatus());
@@ -64,7 +64,7 @@ class ItemResourceTest {
         // Arrange
 
         // Act
-        Response response = itemResource.getItem(ITEM_ID);
+        Response response = sut.getItem(ITEM_ID);
 
         // Assert
         Assertions.assertEquals(HTTP_OK, response.getStatus());
