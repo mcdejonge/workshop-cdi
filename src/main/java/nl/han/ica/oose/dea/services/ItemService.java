@@ -70,8 +70,6 @@ public class ItemService {
      * @throws ItemNotAvailableException Thrown if there is no {@link ItemDTO} for the given Id
      */
     public void deleteItem(int id) {
-        Optional<ItemDTO> itemForName = items.stream().filter(item -> item.getId() == id).findFirst();
-
         List<ItemDTO> filteredItems = items.stream().filter(item -> item.getId() != id).collect(Collectors.toList());
 
         if (filteredItems.size() == items.size()) {
