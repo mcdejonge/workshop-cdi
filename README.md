@@ -36,3 +36,30 @@ dat je, wanneer een test faalt, niet goed weet of de fout nu in `ItemResource` o
 We gaan dit probleem oplossen door de `ItemService` los te koppelen van de `ItemResource`, met behulp van Dependency Injection.
 Hiermee kunnen we de code beter laten voldoen aan de **D** van **SOLID**, het **D**pendency Inversion Principle. In het volgende
 onderdeel kunnen we vervolgens laten zien hoe we nu wel enkel de `ItemResource` kunnen testen.
+
+### 2.1: Het omkeren van de afhankelijkheid (Dependency Inversion)
+Momenteel is de `ItemResource` afhankelijk van de `ItemService`. Stel dat de methode `getAll()` uit de `ItemService` van
+naam zal veranderen, dan zal ook de `ItemResource` aangepast moeten worden. Dit gaan we aanpassen; we gaan 
+eerst een interface maken die vast zal leggen welke methodes de `ItemResource` zal verwachten. Het type van de 
+instantievariabele van de `ItemService` in de `ItemResource` wordt daarna aangepast naar de Interface. En Tot slot
+moet de `ItemService` de interface implementeren.
+* Hernoem de `ItemService` naar `HardCodedItemService`. De waarden zijn tenslotte hard-coded en het geeft dus beter
+aan wat we van de klasse kunnen verwachten.
+* Creëer een interface op basis van de `HardCodedItemService` en noem deze `ItemService`. Gebruik bij voorkeur de
+refactor-functies van je IDE.
+* Zorg dat de `HardCodedItemService` de interface `ItemService` implementeerd.
+* Pas het type van de instantievariabele op de `ItemResource` aan.
+
+### 2.2: Toepassen Dependency Injection
+In de constructor van de `ItemResource` wordt een nieuwe instantie van de `HardCodedItemService` geïnstantieerd
+en aan een instatievariabele toegewezen. Deze verantwoordelijkheid gaan we overdragen aan de JavaEE container, door 
+gebruik te maken van CDI.
+* Verwijder de volledige constructor van de `ItemResource`.
+* Creëer een setter voor de instantievariabele genaamd `itemService`.
+* Annoteer de setter met `@Inject`
+* Om CDI 'aan' te zetten is het nog nodig om een *beans.xml* bestand op de juiste plek te zetten. Lees dit 
+artikel voor meer informatie hierover: [An Introduction to CDI ](https://www.baeldung.com/java-ee-cdi)
+
+### 3: Repareren van de unittests
+
+### 4: Injecteren van een alternatieve `ItemService`
