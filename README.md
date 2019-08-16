@@ -60,6 +60,12 @@ gebruik te maken van CDI.
 * Om CDI 'aan' te zetten is het nog nodig om een *beans.xml* bestand op de juiste plek te zetten. Lees dit 
 artikel voor meer informatie hierover: [An Introduction to CDI ](https://www.baeldung.com/java-ee-cdi)
 
-### 3: Repareren van de unittests
+## 3: Repareren van de unittests
+Door het toevoegen van Dependency Injection zullen de unittests nu `NullPointerExceptions` gaan opleveren. Snap
+je ook waarom?
+
+### 3.1: 
+In iedere unittest zal nu eerst niet alleen een instantie gemaakt moeten worden van de  
+
 
 ### 4: Injecteren van een alternatieve `ItemService`
