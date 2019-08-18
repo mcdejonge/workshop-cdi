@@ -123,6 +123,22 @@ Haal hiervoor de bestaande unittest voor de betreffende methode weg. We zullen d
     var itemsToReturn = new ArrayList<ItemDTO>();
     Mockito.when(itemService.getAll()).thenReturn(itemsToReturn);
 ```
+* In de *Act* moet op de SUT de betreffende methode worden aangeroepen. 
+* In de *Assert* moet je testen of de Entity in de `Response` hetzelfde Object is als dat je vanuit je mock hebt 
+teruggegeven
 
+### 3.2 Toevoegen van zinnige unittests voor de overige methodes
+Maak nu ook zinnige unittests voor de overige methodes. Deze zullen vergelijkbaar zijn met de
+hierboven beschreven tests.
+
+### 3.3 Toevoegen unittests voor de foutafhandeling
+Waarschijnlijk heb je nu alleen de happy-flow getest. Door het gebruik van de ExceptionMappers 
+is het ook van belang dat de `ItemResource` de gegooide exepties van het type `IdAlreadyInUseException`
+en `ItemNotAvailableException` niet vangt, maar gewoon doorgooit.
+
+* In de *Arrange* zorg je ervoor dat wanneer de betreffende methode op de mock wordt aangeroepen, 
+de exceptie van het juiste type wordt gegooit. Gebruik eventueel deze [tutorial](https://www.baeldung.com/mockito-exceptions).
+* De *Act* en de *Assert* zullen enigzins samenvallen door de API van jUnit. In het *Assert* deel
+test je of de verwachtte exceptie ook daadwerkelijk wordt gegooit. Gebruik eventueel deze [tutorial](https://howtodoinjava.com/junit5/expected-exception-example/).
 
 ## 4: Injecteren van een alternatieve `ItemService`

@@ -2,9 +2,12 @@ package nl.han.ica.oose.dea.resources;
 
 import nl.han.ica.oose.dea.services.ItemService;
 import nl.han.ica.oose.dea.services.dto.ItemDTO;
+import nl.han.ica.oose.dea.services.exceptions.IdAlreadyInUseException;
+import nl.han.ica.oose.dea.services.exceptions.ItemNotAvailableException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import javax.ws.rs.core.Response;
@@ -13,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class ItemResourceTest {
 
@@ -28,7 +32,7 @@ class ItemResourceTest {
     void setup() {
         this.sut = new ItemResource();
 
-        this.itemService = Mockito.mock(ItemService.class);
+        this.itemService = mock(ItemService.class);
 
         this.sut.setItemService(itemService);
     }
@@ -48,14 +52,14 @@ class ItemResourceTest {
     void getJsonReturnsObjectFromServiceAsEntity() {
         // Arrange
         var itemsToReturn = new ArrayList<ItemDTO>();
-        Mockito.when(itemService.getAll()).thenReturn(itemsToReturn);
+        when(itemService.getAll()).thenReturn(itemsToReturn);
 
         // Act
         var response = sut.getJsonItems();
 
         // Assert
-        Assertions.assertEquals(HTTP_OK, response.getStatus());
-        Assertions.assertEquals(itemsToReturn, response.getEntity());
+        assertEquals(HTTP_OK, response.getStatus());
+        assertEquals(itemsToReturn, response.getEntity());
     }
 
     @Test
@@ -66,47 +70,118 @@ class ItemResourceTest {
         sut.getJsonItems();
 
         // Assert
-        Mockito.verify(itemService).getAll();
+        verify(itemService).getAll();
     }
 
     @Test
-    void addItemsAddsItem() {
+    void addItemsCallsaAddItemOnService() {
         // Arrange
         var item = new ItemDTO(37, "Chocolate spread", new String[]{"Breakfast, Lunch"}, "Not to much");
+
+        // Act
+        sut.addItem(item);
+
+        // Assert
+        verify(itemService).addItem(item);
+    }
+
+    @Test
+    void addItemsReturnsHttp201() {
+        // Arrange
+        var item = new ItemDTO(37, "Chocolate spread", new String[]{"Breakfast, Lunch"}, "Not to much");
+
         // Act
         var response = sut.addItem(item);
 
         // Assert
-        Assertions.assertEquals(HTTP_CREATED, response.getStatus());
+        assertEquals(HTTP_CREATED, response.getStatus());
     }
 
     @Test
-    void getItemGetsCorrectItem() {
+    void addItemsLetsIdAlreadyInUseExceptionPass() {
+        // Arrange
+        var item = new ItemDTO(37, "Chocolate spread", new String[]{"Breakfast, Lunch"}, "Not to much");
+        doThrow(IdAlreadyInUseException.class).when(itemService).addItem(item);
+
+        // Act & Assert
+        assertThrows(IdAlreadyInUseException.class, () -> sut.addItem(item));
+    }
+
+    @Test
+    void getItemCallsGetItemOnService() {
+        // Arrange
+        var item = new ItemDTO(ITEM_ID, "Chocolate spread", new String[]{"Breakfast, Lunch"}, "Not to much");
+
+        // Act
+        sut.getItem(ITEM_ID);
+
+        // Assert
+        verify(itemService).getItem(ITEM_ID);
+    }
+
+    @Test
+    void getItemReturnsObjectFromServiceAsEntity() {
+        // Arrange
+        var item = new ItemDTO(ITEM_ID, "Chocolate spread", new String[]{"Breakfast, Lunch"}, "Not to much");
+        when(itemService.getItem(ITEM_ID)).thenReturn(item);
+
+        // Act
+        Response response = sut.getItem(ITEM_ID);
+
+        // Assert
+        assertEquals(item, response.getEntity());
+    }
+
+    @Test
+    void getItemReturnsHttp200() {
+        // Arrange
+        var item = new ItemDTO(ITEM_ID, "Chocolate spread", new String[]{"Breakfast, Lunch"}, "Not to much");
+        when(itemService.getItem(ITEM_ID)).thenReturn(item);
+
+        // Act
+        Response response = sut.getItem(ITEM_ID);
+
+        // Assert
+        assertEquals(HTTP_OK, response.getStatus());
+    }
+
+    @Test
+    void getItemLetsItemNotAvailableExceptionPass() {
+        // Arrange
+        doThrow(ItemNotAvailableException.class).when(itemService).getItem(ITEM_ID);
+
+        // Act & Assert
+        assertThrows(ItemNotAvailableException.class, () -> sut.getItem(ITEM_ID));
+    }
+
+    @Test
+    void deleteItemCallsDeleteItemOnService() {
         // Arrange
 
         // Act
-        var response = sut.getItem(ITEM_ID);
+        sut.deleteItem(ITEM_ID);
 
         // Assert
-        Assertions.assertEquals(HTTP_OK, response.getStatus());
-        Assertions.assertTrue(response.getEntity() instanceof ItemDTO);
-
-        if (response.getEntity() instanceof ItemDTO) {
-            var item = (ItemDTO) response.getEntity();
-            assertEquals(ITEM_ID, item.getId());
-        } else {
-            assertFalse(false);
-        }
+        verify(itemService).deleteItem(ITEM_ID);
     }
 
     @Test
-    void deleteItemDeletesItem() {
+    void deleteItemsReturnsHttp200() {
         // Arrange
 
         // Act
         var response = sut.deleteItem(ITEM_ID);
 
         // Assert
-        Assertions.assertEquals(HTTP_OK, response.getStatus());
+        assertEquals(HTTP_OK, response.getStatus());
+    }
+
+    @Test
+    void deleteItemLetsItemNotAvailableExceptionPass() {
+        // Arrange
+        doThrow(ItemNotAvailableException.class).when(itemService).deleteItem(ITEM_ID);
+
+        // Act & Assert
+        assertThrows(ItemNotAvailableException.class, () -> sut.deleteItem(ITEM_ID));
     }
 }
