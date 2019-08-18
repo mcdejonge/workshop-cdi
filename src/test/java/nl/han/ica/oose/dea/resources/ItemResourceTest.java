@@ -9,6 +9,7 @@ import org.mockito.Mockito;
 
 import javax.ws.rs.core.Response;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -44,15 +45,28 @@ class ItemResourceTest {
     }
 
     @Test
-    void getJsonItemsreturnJsonItems() {
+    void getJsonReturnsObjectFromServiceAsEntity() {
         // Arrange
+        var itemsToReturn = new ArrayList<ItemDTO>();
+        Mockito.when(itemService.getAll()).thenReturn(itemsToReturn);
 
         // Act
         var response = sut.getJsonItems();
 
         // Assert
         Assertions.assertEquals(HTTP_OK, response.getStatus());
-        Assertions.assertTrue(response.getEntity() instanceof List);
+        Assertions.assertEquals(itemsToReturn, response.getEntity());
+    }
+
+    @Test
+    void getJsonItemsCallsGetAll() {
+        // Arrange
+
+        // Act
+        sut.getJsonItems();
+
+        // Assert
+        Mockito.verify(itemService).getAll();
     }
 
     @Test

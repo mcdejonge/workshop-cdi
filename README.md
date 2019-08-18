@@ -95,4 +95,34 @@ die we gaan oplossen door geen *echte* `ItemResource` te gebruiken, maar een gem
 
 Run je tests. Mogelijk zijn er al test die nu slagen. Als dat zo is, dan toont dit
 voornamelijk aan dat de unittests slecht zijn en weinig waarde toevoegen.
-### 4: Injecteren van een alternatieve `ItemService`
+De methodes die op je gemockte `ItemService` worden aangeroepen bevatten namelijk nog geen
+gedrag.
+
+### 3.2 Toevoegen van zinnige unittests voor `getJsonItems()`
+Nu we via Mockito een gemockte `ItemService` hebben gemaakt, kunnen we al het gewenste gedrag
+van de `ItemResource` gaan testen. We gaan dit doen voor de tests van de methode: `getJsonItems()`.
+
+Hiervoor gaan we de volgende tests schrijven, die al he gewenste gedrag van de methode vastleggen:
+1. Wanneer de methode `getJsonItems()` wordt aangeroepen, moet op de `ItemService` de methode `getAll()` worden aangeroepen.
+2. Wanneer de methode `getJsonItems()` wordt aangeroepen **en** de methode `getAll()` op de `ItemService` retourneert een Object, dan:
+    * Is de status code van de `Response` 200
+    * Levert de `getEnitity()` van de `Response` het Object terug dat de `getAll()` heeft geretourneerd
+
+Haal hiervoor de bestaande unittest voor de betreffende methode weg. We zullen deze vervangen door twee nieuwe unittests.
+
+* Schrijf een nieuwe unittest genaamd `getJsonItemsCallsGetAll`
+* In de *Arrange* hoeft niks te gebeuren.
+* In de *Act* moet op de SUT de betreffende methode worden aangeroepen. 
+* In de *Assert* moet je testen of de methode `getAll()` ook daadwerkelijk is aangeroepen: 
+```
+    Mockito.verify(itemService).getAll(); 
+```
+* Schrijf een nieuwe uniitest genaamd `getJsonReturnsObjectFromServiceAsEntity()`
+* In de *Arrange* moet je met Mockito zorgen dat je gemockte `ItemService` een specifiek Object retourneert:
+```
+    var itemsToReturn = new ArrayList<ItemDTO>();
+    Mockito.when(itemService.getAll()).thenReturn(itemsToReturn);
+```
+
+
+## 4: Injecteren van een alternatieve `ItemService`
