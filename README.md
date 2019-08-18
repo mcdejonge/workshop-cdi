@@ -61,11 +61,38 @@ gebruik te maken van CDI.
 artikel voor meer informatie hierover: [An Introduction to CDI ](https://www.baeldung.com/java-ee-cdi)
 
 ## 3: Repareren van de unittests
-Door het toevoegen van Dependency Injection zullen de unittests nu `NullPointerExceptions` gaan opleveren. Snap
-je ook waarom?
+Door het toevoegen van Dependency Injection zullen de unittests nu `NullPointerExceptions` gaan opleveren. 
+In dit onderdeel gaan we dat weer repareren, maar daarbij gaan we ook gebruik maken van het gegeven dat de `ItemResource`
+niet langer hard gekoppeld is aan de `ItemService`. En om de tests nog zinniger te maken introduceren we
+het concept van [Mocking](https://medium.com/@piraveenaparalogarajah/what-is-mocking-in-testing-d4b0f2dbe20a), 
+waarvoor we gebruik gaan maken van het framework [Mockito](https://site.mockito.org/)
 
-### 3.1: 
-In iedere unittest zal nu eerst niet alleen een instantie gemaakt moeten worden van de  
+### 3.1: Mocken van een `ItemService`
+In iedere unittest zal nu eerst niet alleen een instantie gemaakt moeten worden van de SUT, maar ook van
+een `ItemService`, die vervolgens via een *setter* op de SUT geplaatst moet worden. Wanneer we hier
+een instantie voor maken van een `ItemService`, bijvoorbeeld de `HardCodedItemService`, dan blijft onze
+unittest afhankelijk van die `HardCodedItemService`. Wanneer een test faalt, dan kan dit nog steeds komen
+doordat er een bug zit in de `ItemResource` of de `HardCodedItemService`. Een zeer onwenselijke situatie, 
+die we gaan oplossen door geen *echte* `ItemResource` te gebruiken, maar een gemockte.
+* Voeg een dependency toe op de laatste versie van [Mockito](https://site.mockito.org/) (kies voor het artifactId: *mockito-core*)
+* Voeg aan je testklasse de volgende instantie variabele toe:
+```        
+    private ItemService itemService;
+```
+* Gebruik de `setup()` methode om een gemockte `ItemService` aan je SUT toe te voegen:
+```
+    @BeforeEach
+    void setup() {
+        this.sut = new ItemResource();
+        
+        // Gebruik Mockito om een instantie te maken
+        this.itemService = Mockito.mock(ItemService.class);
+        
+        // Gebruik de setter om de ItemService te zetten
+        this.sut.setItemService(itemService);
+    }
+```
 
-
+Run je tests. Mogelijk zijn er al test die nu slagen. Als dat zo is, dan toont dit
+voornamelijk aan dat de unittests slecht zijn en weinig waarde toevoegen.
 ### 4: Injecteren van een alternatieve `ItemService`

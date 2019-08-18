@@ -1,9 +1,11 @@
 package nl.han.ica.oose.dea.resources;
 
+import nl.han.ica.oose.dea.services.ItemService;
 import nl.han.ica.oose.dea.services.dto.ItemDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import javax.ws.rs.core.Response;
 
@@ -19,10 +21,15 @@ class ItemResourceTest {
     private static final int HTTP_CREATED = 201;
 
     private ItemResource sut;
+    private ItemService itemService;
 
     @BeforeEach
     void setup() {
         this.sut = new ItemResource();
+
+        this.itemService = Mockito.mock(ItemService.class);
+
+        this.sut.setItemService(itemService);
     }
 
     @Test
@@ -30,7 +37,7 @@ class ItemResourceTest {
         // Arrange
 
         // Act
-        String textItems = sut.getTextItems();
+        var textItems = sut.getTextItems();
 
         // Assert
         assertEquals(TEXT_ITEMS, textItems);
@@ -41,7 +48,7 @@ class ItemResourceTest {
         // Arrange
 
         // Act
-        Response response = sut.getJsonItems();
+        var response = sut.getJsonItems();
 
         // Assert
         Assertions.assertEquals(HTTP_OK, response.getStatus());
@@ -53,7 +60,7 @@ class ItemResourceTest {
         // Arrange
         var item = new ItemDTO(37, "Chocolate spread", new String[]{"Breakfast, Lunch"}, "Not to much");
         // Act
-        Response response = sut.addItem(item);
+        var response = sut.addItem(item);
 
         // Assert
         Assertions.assertEquals(HTTP_CREATED, response.getStatus());
@@ -64,7 +71,7 @@ class ItemResourceTest {
         // Arrange
 
         // Act
-        Response response = sut.getItem(ITEM_ID);
+        var response = sut.getItem(ITEM_ID);
 
         // Assert
         Assertions.assertEquals(HTTP_OK, response.getStatus());
@@ -83,7 +90,9 @@ class ItemResourceTest {
         // Arrange
 
         // Act
+        var response = sut.deleteItem(ITEM_ID);
 
         // Assert
+        Assertions.assertEquals(HTTP_OK, response.getStatus());
     }
 }
