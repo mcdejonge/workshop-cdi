@@ -30,7 +30,7 @@ class ItemResourceTest {
         // Arrange
 
         // Act
-        String textItems = sut.getTextItems();
+        var textItems = sut.getTextItems();
 
         // Assert
         assertEquals(TEXT_ITEMS, textItems);
@@ -41,7 +41,7 @@ class ItemResourceTest {
         // Arrange
 
         // Act
-        Response response = sut.getJsonItems();
+        var response = sut.getJsonItems();
 
         // Assert
         Assertions.assertEquals(HTTP_OK, response.getStatus());
@@ -53,7 +53,7 @@ class ItemResourceTest {
         // Arrange
         var item = new ItemDTO(37, "Chocolate spread", new String[]{"Breakfast, Lunch"}, "Not to much");
         // Act
-        Response response = sut.addItem(item);
+        var response = sut.addItem(item);
 
         // Assert
         Assertions.assertEquals(HTTP_CREATED, response.getStatus());
@@ -64,7 +64,7 @@ class ItemResourceTest {
         // Arrange
 
         // Act
-        Response response = sut.getItem(ITEM_ID);
+        var response = sut.getItem(ITEM_ID);
 
         // Assert
         Assertions.assertEquals(HTTP_OK, response.getStatus());
@@ -83,7 +83,9 @@ class ItemResourceTest {
         // Arrange
 
         // Act
+        var response = sut.deleteItem(ITEM_ID);
 
         // Assert
+        Assertions.assertEquals(HTTP_OK, response.getStatus());
     }
 }
