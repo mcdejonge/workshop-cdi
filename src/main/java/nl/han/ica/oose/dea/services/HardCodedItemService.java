@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
  * The {@code ItemService} can be used for accessing a {@link List} of {@link ItemDTO} instances, but also
  * for adding instances to and deleting from the {@link List}.
  */
-@Default
 public class HardCodedItemService implements ItemService {
 
     private List<ItemDTO> items = new ArrayList<>();
