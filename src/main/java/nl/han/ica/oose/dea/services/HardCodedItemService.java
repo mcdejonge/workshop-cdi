@@ -23,24 +23,11 @@ public class HardCodedItemService implements ItemService {
         items.add(new ItemDTO(3, "Honey", new String[]{"Breakfast, Lunch"}, "Use it with bread"));
     }
 
-    /**
-     * Return the full {@link List} of {@link ItemDTO} instances.
-     *
-     * @return The full {@link List} of {@link ItemDTO} instances.
-     */
     @Override
     public List<ItemDTO> getAll() {
         return items;
     }
 
-    /**
-     * Add an item to the {@link List} of items.
-     * <p>
-     * Note that the newly added item should have an unique Id.
-     *
-     * @param itemDTO The {@link ItemDTO} to be added
-     * @throws IdAlreadyInUseException Thrown if the Id is not unique
-     */
     @Override
     public void addItem(ItemDTO itemDTO) {
         if (items.stream().anyMatch(item -> item.getId() == itemDTO.getId())) {
@@ -50,12 +37,6 @@ public class HardCodedItemService implements ItemService {
         items.add(itemDTO);
     }
 
-    /**
-     * Return a specific {@link ItemDTO} with the given Id.
-     *
-     * @param id The Id of the {@link ItemDTO} to be returned
-     * @throws ItemNotAvailableException Thrown if there is no {@link ItemDTO} for the given Id
-     */
     @Override
     public ItemDTO getItem(int id) {
         Optional<ItemDTO> requestedItem = items.stream().filter(item -> item.getId() == id).findFirst();
@@ -67,11 +48,6 @@ public class HardCodedItemService implements ItemService {
         }
     }
 
-    /**
-     * Delete a specific {@link ItemDTO} with the given Id.
-     *
-     * @throws ItemNotAvailableException Thrown if there is no {@link ItemDTO} for the given Id
-     */
     @Override
     public void deleteItem(int id) {
         List<ItemDTO> filteredItems = items.stream().filter(item -> item.getId() != id).collect(Collectors.toList());
