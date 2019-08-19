@@ -142,3 +142,26 @@ de exceptie van het juiste type wordt gegooit. Gebruik eventueel deze [tutorial]
 test je of de verwachtte exceptie ook daadwerkelijk wordt gegooit. Gebruik eventueel deze [tutorial](https://howtodoinjava.com/junit5/expected-exception-example/).
 
 ## 4: Injecteren van een alternatieve `ItemService`
+We gaan een tweede klasse maken die de interface `ItemService` implementeerd. Vervolgens
+zullen we via de `beans.xml` gaan configureren welke van de twee implementaties wordt
+geïnjecteerd.
+
+### 4.1 Een tweede implementatie
+Maak een tweede klasse die de interface `ItemService` implementeerd. Zorg voor een zinnige
+implementatie.
+
+Deploy je applicatie op TomEE en bekijk wat er gebeurt. Lees de stacktrace. Is dit wat je 
+verwacht?
+
+### 4.2 Toevoegen van de benodigde annotaties
+Je zal gemerkt hebben dat de applicatie nu niet meer gedeployed kan worden. De applicatiecontainer
+weet namelijk niet welke `ItemService` hij moet instantiëren en injecteren. Dit kan opgelost
+worden door aan te geven welke de *Default* implementatie is en welke de *Alternative*.
+
+* Bekijk weer: [An Introduction to CDI ](https://www.baeldung.com/java-ee-cdi) en zorg ervoor dat de
+`HardCodedItemService` de *Default* implementatie is. De andere is dan de *Alternative*.
+
+### 4.3 Configuratie via de `beans.xml
+Gebruik de `beans.xml` om te configuren dat er voor injectie gebruik moet worden gemaakt van de *Alternative*.
+
+* De eerder genoemde tutorial bevat deze informatie niet. Gebruik google om uit te zoeken hoe je dit moet doen.
