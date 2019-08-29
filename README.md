@@ -73,7 +73,7 @@ een `ItemService`, die vervolgens via een *setter* op de SUT geplaatst moet word
 een instantie voor maken van een `ItemService`, bijvoorbeeld de `HardCodedItemService`, dan blijft onze
 unittest afhankelijk van die `HardCodedItemService`. Wanneer een test faalt, dan kan dit nog steeds komen
 doordat er een bug zit in de `ItemResource` of de `HardCodedItemService`. Een zeer onwenselijke situatie, 
-die we gaan oplossen door geen *echte* `ItemResource` te gebruiken, maar een gemockte.
+die we gaan oplossen door geen *echte* `ItemService` te gebruiken, maar een gemockte.
 * Voeg een dependency toe op de laatste versie van [Mockito](https://site.mockito.org/) (kies voor het artifactId: *mockito-core*)
 * Voeg aan je testklasse de volgende instantie variabele toe:
 ```        
