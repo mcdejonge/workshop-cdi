@@ -77,7 +77,7 @@ die we gaan oplossen door geen *echte* `ItemService` te gebruiken, maar een gemo
 * Voeg een dependency toe op de laatste versie van [Mockito](https://site.mockito.org/) (kies voor het artifactId: *mockito-core*)
 * Voeg aan je testklasse de volgende instantie variabele toe:
 ```        
-    private ItemService itemService;
+    private ItemService mockedItemService;
 ```
 * Gebruik de `setup()` methode om een gemockte `ItemService` aan je SUT toe te voegen:
 ```
@@ -86,10 +86,10 @@ die we gaan oplossen door geen *echte* `ItemService` te gebruiken, maar een gemo
         this.sut = new ItemResource();
         
         // Gebruik Mockito om een instantie te maken
-        this.itemService = Mockito.mock(ItemService.class);
+        this.mockedItemService = Mockito.mock(ItemService.class);
         
-        // Gebruik de setter om de ItemService te zetten
-        this.sut.setItemService(itemService);
+        // Gebruik de setter om de mockedItemService te zetten
+        this.sut.setItemService(mockedItemService);
     }
 ```
 
