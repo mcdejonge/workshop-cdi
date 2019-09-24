@@ -117,7 +117,7 @@ Haal hiervoor de bestaande unittest voor de betreffende methode weg. We zullen d
 ```
     Mockito.verify(mockedItemService).getAll(); 
 ```
-* Schrijf een nieuwe uniitest genaamd `getJsonReturnsObjectFromServiceAsEntity()`
+* Schrijf een nieuwe unittest genaamd `getJsonReturnsObjectFromServiceAsEntity()`
 * In de *Arrange* moet je met Mockito zorgen dat je gemockte `ItemService` een specifiek Object retourneert:
 ```
     var itemsToReturn = new ArrayList<ItemDTO>();
