@@ -3,8 +3,8 @@ Deze workshop is deel van de DEA Course aan de Hogeschool Arnhem/Nijmegen.
 Onderwerp is het bekend raken met CDI en het unittesten van een JavaEE applicatie.
 
 # Oefening
-Deze oefening is het vervolg op de oefening [Simple the Rest](https://github.com/HANICA-DEA/workshop-simply-the-rest). 
-De startcode van deze oefening is de eindcode van [Simple the Rest](https://github.com/HANICA-DEA/workshop-simply-the-rest).
+Deze oefening is het vervolg op de oefening [Simply the Rest](https://github.com/HANICA-DEA/workshop-simply-the-rest). 
+De startcode van deze oefening is de eindcode van [Simply the Rest](https://github.com/HANICA-DEA/workshop-simply-the-rest).
 
 ## 1: Unittests toevoegen
 We zullen beginnen met het toevoegen van unittests voor de klassen `HealthCheckResource` en `ItemResource`
@@ -34,7 +34,7 @@ nu niet eens kan testen of de `ItemResource` correct gebruik maakt van de `ItemS
 dat je, wanneer een test faalt, niet goed weet of de fout nu in `ItemResource` of in de `ItemService` zit.
 
 We gaan dit probleem oplossen door de `ItemService` los te koppelen van de `ItemResource`, met behulp van Dependency Injection.
-Hiermee kunnen we de code beter laten voldoen aan de **D** van **SOLID**, het **D**pendency Inversion Principle. In het volgende
+Hiermee kunnen we de code beter laten voldoen aan de **D** van **SOLID**, het **D**ependency Inversion Principle. In het volgende
 onderdeel kunnen we vervolgens laten zien hoe we nu wel enkel de `ItemResource` kunnen testen.
 
 ### 2.1: Het omkeren van de afhankelijkheid (Dependency Inversion)
@@ -115,13 +115,13 @@ Haal hiervoor de bestaande unittest voor de betreffende methode weg. We zullen d
 * In de *Act* moet op de SUT de betreffende methode worden aangeroepen. 
 * In de *Assert* moet je testen of de methode `getAll()` ook daadwerkelijk is aangeroepen: 
 ```
-    Mockito.verify(itemService).getAll(); 
+    Mockito.verify(mockedItemService).getAll(); 
 ```
 * Schrijf een nieuwe uniitest genaamd `getJsonReturnsObjectFromServiceAsEntity()`
 * In de *Arrange* moet je met Mockito zorgen dat je gemockte `ItemService` een specifiek Object retourneert:
 ```
     var itemsToReturn = new ArrayList<ItemDTO>();
-    Mockito.when(itemService.getAll()).thenReturn(itemsToReturn);
+    Mockito.when(mockedItemService.getAll()).thenReturn(itemsToReturn);
 ```
 * In de *Act* moet op de SUT de betreffende methode worden aangeroepen. 
 * In de *Assert* moet je testen of de Entity in de `Response` hetzelfde Object is als dat je vanuit je mock hebt 
