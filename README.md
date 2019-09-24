@@ -3,8 +3,8 @@ Deze workshop is deel van de DEA Course aan de Hogeschool Arnhem/Nijmegen.
 Onderwerp is het bekend raken met CDI en het unittesten van een JavaEE applicatie.
 
 # Oefening
-Deze oefening is het vervolg op de oefening [Simple the Rest](https://github.com/HANICA-DEA/workshop-simply-the-rest). 
-De startcode van deze oefening is de eindcode van [Simple the Rest](https://github.com/HANICA-DEA/workshop-simply-the-rest).
+Deze oefening is het vervolg op de oefening [Simply the Rest](https://github.com/HANICA-DEA/workshop-simply-the-rest). 
+De startcode van deze oefening is de eindcode van [Simply the Rest](https://github.com/HANICA-DEA/workshop-simply-the-rest).
 
 ## 1: Unittests toevoegen
 We zullen beginnen met het toevoegen van unittests voor de klassen `HealthCheckResource` en `ItemResource`
@@ -34,7 +34,7 @@ nu niet eens kan testen of de `ItemResource` correct gebruik maakt van de `ItemS
 dat je, wanneer een test faalt, niet goed weet of de fout nu in `ItemResource` of in de `ItemService` zit.
 
 We gaan dit probleem oplossen door de `ItemService` los te koppelen van de `ItemResource`, met behulp van Dependency Injection.
-Hiermee kunnen we de code beter laten voldoen aan de **D** van **SOLID**, het **D**pendency Inversion Principle. In het volgende
+Hiermee kunnen we de code beter laten voldoen aan de **D** van **SOLID**, het **D**ependency Inversion Principle. In het volgende
 onderdeel kunnen we vervolgens laten zien hoe we nu wel enkel de `ItemResource` kunnen testen.
 
 ### 2.1: Het omkeren van de afhankelijkheid (Dependency Inversion)
