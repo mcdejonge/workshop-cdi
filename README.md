@@ -115,13 +115,13 @@ Haal hiervoor de bestaande unittest voor de betreffende methode weg. We zullen d
 * In de *Act* moet op de SUT de betreffende methode worden aangeroepen. 
 * In de *Assert* moet je testen of de methode `getAll()` ook daadwerkelijk is aangeroepen: 
 ```
-    Mockito.verify(itemService).getAll(); 
+    Mockito.verify(mockedItemService).getAll(); 
 ```
 * Schrijf een nieuwe uniitest genaamd `getJsonReturnsObjectFromServiceAsEntity()`
 * In de *Arrange* moet je met Mockito zorgen dat je gemockte `ItemService` een specifiek Object retourneert:
 ```
     var itemsToReturn = new ArrayList<ItemDTO>();
-    Mockito.when(itemService.getAll()).thenReturn(itemsToReturn);
+    Mockito.when(mockedItemService.getAll()).thenReturn(itemsToReturn);
 ```
 * In de *Act* moet op de SUT de betreffende methode worden aangeroepen. 
 * In de *Assert* moet je testen of de Entity in de `Response` hetzelfde Object is als dat je vanuit je mock hebt 
