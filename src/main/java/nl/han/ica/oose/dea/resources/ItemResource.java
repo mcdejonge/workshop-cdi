@@ -6,6 +6,7 @@ import nl.han.ica.oose.dea.services.dto.ItemDTO;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
 
 @Path("/items")
 public class ItemResource {
@@ -33,7 +34,9 @@ public class ItemResource {
     public Response addItem(ItemDTO itemDTO) {
         itemService.addItem(itemDTO);
 
-        return Response.status(201).build();
+        return Response.created(
+            UriBuilder.fromPath("items/{id}").build(itemDTO.getId())
+        ).build();
     }
 
     @GET
