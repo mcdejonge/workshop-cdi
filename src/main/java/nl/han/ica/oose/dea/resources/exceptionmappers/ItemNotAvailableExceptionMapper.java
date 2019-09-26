@@ -10,6 +10,6 @@ import javax.ws.rs.ext.Provider;
 public class ItemNotAvailableExceptionMapper implements ExceptionMapper<ItemNotAvailableException> {
     @Override
     public Response toResponse(ItemNotAvailableException e) {
-        return Response.status(404).build();
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 }
