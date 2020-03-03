@@ -14,7 +14,7 @@ We beginnen met het toevoegen van unittests voor de klassen `HealthCheckResource
 Voeg aan je project een dependency op jUnit toe en schrijf een unittest voor de methode uit de klasse `HealthCheckResource`.
 
 ### 1.2: `ItemResource`
-Schrijf voor iedere methode uit de klasse `ItemResource` een zinnige unittest. Omdat deze methode gebruik maakt van de `ItemService` en daar ook hard aan is gekopppeld, zal alleen de happy-flow getest kunnen worden. Voor nu is dat voldoende.
+Schrijf voor iedere methode uit de klasse `ItemResource` een zinnige unittest. Omdat deze methode gebruik maakt van de `ItemService` en daar ook hard aan is gekopppeld, kun je alleen de happy-flow testen. Voor **nu** is dat voldoende!
 
 Waarschijnlijk loop je nog wel tegen een probleem aan bij het testen van de methodes die een `Response` teruggeven.
 Lees de stacktrace goed door en gebruik Google om een oplossing te vinden.
@@ -75,8 +75,7 @@ Dit los je op door geen *echte* `ItemService` te gebruiken, maar een gemockte:
     }
 ```
 
-Run je tests. Mogelijk zijn er al test die nu slagen. Als dat zo is, dan toont dit voornamelijk aan dat de unittests slecht zijn en weinig waarde toevoegen. De methodes die op je gemockte `ItemService` worden aangeroepen bevatten namelijk nog geen
-gedrag.
+Run je tests. Mogelijk zijn er al test die nu slagen. Als dat zo is, dan toont dit voornamelijk aan dat de unittests slecht zijn en weinig waarde toevoegen. De methodes in de gemockte `ItemService` bevatten namelijk nog geen gedrag.
 
 ### 3.2 Toevoegen van zinnige unittests voor `getJsonItems()`
 Nu we via Mockito een gemockte `ItemService` hebben gemaakt, kunnen we al het gewenste gedrag van de `ItemResource` testen. We doen dit voor de tests van de methode `getJsonItems()`.
@@ -111,8 +110,8 @@ Maak nu ook zinnige unittests voor de overige methodes. Deze zijn vergelijkbaar 
 ### 3.3 Toevoegen unittests voor de foutafhandeling
 Waarschijnlijk heb je nu alleen de happy-flow getest. Door het gebruik van de ExceptionMappers is het ook van belang dat de `ItemResource` de gegooide exepties van het type `IdAlreadyInUseException` en `ItemNotAvailableException` niet vangt, maar gewoon doorgooit.
 
-* In de *Arrange* zorg je ervoor dat wanneer de betreffende methode op de mock wordt aangeroepen, de exceptie van het juiste type wordt gegooit. Gebruik eventueel deze [tutorial](https://www.baeldung.com/mockito-exceptions).
-* De *Act* en de *Assert* zullen enigzins samenvallen door de API van jUnit. In het *Assert* deel test je of de verwachtte exceptie ook daadwerkelijk wordt gegooit. Gebruik eventueel deze [tutorial](https://howtodoinjava.com/junit5/expected-exception-example/).
+* In de *Arrange* zorg je ervoor dat wanneer de sut de methode op zijn/haar gemochte dependency aanroept, deze de exceptie van het juiste type gooit. Gebruik eventueel deze [tutorial](https://www.baeldung.com/mockito-exceptions).
+* De *Act* en de *Assert* vallen enigzins samen door de API van jUnit. In het *Assert* deel test je of de sut de verwachtte exceptie ook daadwerkelijk gooit. Gebruik eventueel deze [tutorial](https://howtodoinjava.com/junit5/expected-exception-example/).
 
 ## 4: Injecteren van een alternatieve `ItemService`
 In deze opgave maak je een tweede klasse maken die de interface `ItemService` implementeert. Vervolgens configureer je via de `beans.xml` welke van de twee implementaties te injecteren.
@@ -123,11 +122,11 @@ Maak een tweede klasse die de interface `ItemService` implementeert. Zorg voor e
 Deploy je applicatie op TomEE en bekijk wat er gebeurt. Lees de stacktrace. Is dit wat je verwacht?
 
 ### 4.2 Toevoegen van de benodigde annotaties
-Je zal gemerkt hebben dat de applicatie nu niet meer gedeployed kan worden. De applicatiecontainer weet namelijk niet welke `ItemService` hij moet instantiëren en injecteren. Los dit op door aan te geven welke de *Default* implementatie is en welke de *Alternative*.
+Je merkt als het goed is dat je de applicatie nu niet meer kan deployen. De applicatiecontainer weet namelijk niet welke `ItemService` hij moet instantiëren en injecteren. Los dit op door aan te geven welke de *Default* implementatie is en welke de *Alternative*.
 
 * Bekijk weer: [An Introduction to CDI ](https://www.baeldung.com/java-ee-cdi) en zorg dat de `HardCodedItemService` de *Default* implementatie is. De andere is dan de *Alternative*.
 
 ### 4.3 Configuratie via de `beans.xml
-Gebruik de `beans.xml` om te configuren dat er voor injectie gebruik moet worden gemaakt van de *Alternative*.
+Gebruik de `beans.xml` om te configuren dat CDI bij injectie gebruik maakt van de *Alternative*.
 
 * De eerder genoemde tutorial bevat deze informatie niet. Gebruik google om uit te zoeken hoe je dit moet doen.
