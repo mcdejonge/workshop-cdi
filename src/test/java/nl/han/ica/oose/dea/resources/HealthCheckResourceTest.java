@@ -8,13 +8,13 @@ class HealthCheckResourceTest {
 
     @Test
     public void testHealthy() {
-        // Assert
+        // Arrange
         var su = new HealthCheckResource();
 
         // Act
         var output = su.healthy();
 
-        // Verify
+        // Assert
         assertEquals("Up & Running", output);
     }
 
