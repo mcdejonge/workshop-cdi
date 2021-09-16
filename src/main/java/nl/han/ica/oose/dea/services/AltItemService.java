@@ -4,25 +4,20 @@ import nl.han.ica.oose.dea.services.dto.ItemDTO;
 import nl.han.ica.oose.dea.services.exceptions.IdAlreadyInUseException;
 import nl.han.ica.oose.dea.services.exceptions.ItemNotAvailableException;
 
-import javax.enterprise.inject.Default;
+import javax.enterprise.inject.Alternative;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-/**
- * The {@code ItemService} can be used for accessing a {@link List} of {@link ItemDTO} instances, but also
- * for adding instances to and deleting from the {@link List}.
- */
-@Default
-public class HardCodedItemService implements ItemService {
-
+@Alternative
+public class AltItemService implements ItemService {
     private List<ItemDTO> items = new ArrayList<>();
 
-    public HardCodedItemService() {
-        items.add(new ItemDTO(1, "Bread", new String[]{"Breakfast, Lunch"}, "Delicious!"));
-        items.add(new ItemDTO(2, "Butter", new String[]{"Breakfast, Lunch"}, "Use it with bread"));
-        items.add(new ItemDTO(3, "Honey", new String[]{"Breakfast, Lunch"}, "Use it with bread"));
+    public AltItemService() {
+        items.add(new ItemDTO(1, "Cheese", new String[]{"Breakfast, Lunch"}, "Delicious!"));
+        items.add(new ItemDTO(2, "Sprinkles", new String[]{"Breakfast, Lunch"}, "Use it with bread"));
+        items.add(new ItemDTO(3, "Peanut butter", new String[]{"Breakfast, Lunch"}, "Use it with bread"));
     }
 
     /**
