@@ -4,6 +4,7 @@ import nl.han.ica.oose.dea.services.HardCodedItemService;
 import nl.han.ica.oose.dea.services.ItemService;
 import nl.han.ica.oose.dea.services.dto.ItemDTO;
 
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -14,8 +15,9 @@ public class ItemResource {
 
     private ItemService itemService;
 
-    public ItemResource() {
-        this.itemService = new HardCodedItemService();
+    @Inject
+    public void setItemService(ItemService itemService) {
+        this.itemService = itemService;
     }
 
     @GET
