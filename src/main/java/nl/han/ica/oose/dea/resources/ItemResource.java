@@ -1,5 +1,6 @@
 package nl.han.ica.oose.dea.resources;
 
+import nl.han.ica.oose.dea.services.HardCodedItemService;
 import nl.han.ica.oose.dea.services.ItemService;
 import nl.han.ica.oose.dea.services.dto.ItemDTO;
 
@@ -14,7 +15,7 @@ public class ItemResource {
     private ItemService itemService;
 
     public ItemResource() {
-        this.itemService = new ItemService();
+        this.itemService = new HardCodedItemService();
     }
 
     @GET

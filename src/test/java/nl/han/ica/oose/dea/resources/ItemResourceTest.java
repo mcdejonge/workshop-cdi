@@ -1,9 +1,6 @@
 package nl.han.ica.oose.dea.resources;
 
-import nl.han.ica.oose.dea.services.ItemService;
 import org.junit.jupiter.api.Test;
-
-import javax.transaction.TransactionScoped;
 
 import static org.junit.jupiter.api.Assertions.*;
 
