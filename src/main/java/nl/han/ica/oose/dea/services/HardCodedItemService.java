@@ -20,9 +20,9 @@ public class HardCodedItemService implements ItemService {
     private List<ItemDTO> items = new ArrayList<>();
 
     public HardCodedItemService() {
-        items.add(new ItemDTO(1, "Bread", new String[]{"Breakfast, Lunch"}, "Delicious!"));
-        items.add(new ItemDTO(2, "Butter", new String[]{"Breakfast, Lunch"}, "Use it with bread"));
-        items.add(new ItemDTO(3, "Honey", new String[]{"Breakfast, Lunch"}, "Use it with bread"));
+        items.add(new ItemDTO(1, "HC Bread", new String[]{"Breakfast, Lunch"}, "Delicious!"));
+        items.add(new ItemDTO(2, "HC Butter", new String[]{"Breakfast, Lunch"}, "Use it with bread"));
+        items.add(new ItemDTO(3, "HC Honey", new String[]{"Breakfast, Lunch"}, "Use it with bread"));
     }
 
     /**

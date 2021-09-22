@@ -15,9 +15,9 @@ public class AltItemService implements ItemService {
     private List<ItemDTO> items = new ArrayList<>();
 
     public AltItemService() {
-        items.add(new ItemDTO(1, "Cheese", new String[]{"Breakfast, Lunch"}, "Delicious!"));
-        items.add(new ItemDTO(2, "Sprinkles", new String[]{"Breakfast, Lunch"}, "Use it with bread"));
-        items.add(new ItemDTO(3, "Peanut butter", new String[]{"Breakfast, Lunch"}, "Use it with bread"));
+        items.add(new ItemDTO(11, "Cheese", new String[]{"Breakfast, Lunch"}, "Delicious!"));
+        items.add(new ItemDTO(12, "Sprinkles", new String[]{"Breakfast, Lunch"}, "Use it with bread"));
+        items.add(new ItemDTO(13, "Peanut butter", new String[]{"Breakfast, Lunch"}, "Use it with bread"));
     }
 
     /**
