@@ -48,6 +48,8 @@ De constructor van de `ItemResource` instantieert een nieuwe instantie van de `H
 * Annoteer de setter met `@Inject`.
 * Om CDI 'aan' te zetten is het nog nodig om een *beans.xml* bestand op de juiste plek te zetten. Lees dit artikel voor meer informatie hierover: [An Introduction to CDI ](https://www.baeldung.com/java-ee-cdi).
 
+**LET OP** Bij de startcode voor deze opdracht is al een beans.xml meegeleverd (in webapp/WEB-INF/). Het is *niet* de bedoeling dat je zelf ook nog een *beans.xml* toevoegt!
+
 ## 3: Repareren van de unittests
 Door het toevoegen van Dependency Injection in stap 2 leveren nu de unittests `NullPointerException`s op.  In dit onderdeel repareer je dat en daarbij maak je ook gebruik dat de `ItemResource` niet langer hard gekoppeld is aan de `ItemService`. Om de tests nog zinniger te maken introduceren we het concept van [Mocking](https://medium.com/@piraveenaparalogarajah/what-is-mocking-in-testing-d4b0f2dbe20a), waarvoor we gebruik gaan maken van het framework [Mockito](https://site.mockito.org/)
 
@@ -115,6 +117,7 @@ Waarschijnlijk heb je nu alleen de happy-flow getest. Door het gebruik van de Ex
 
 ## 4: Injecteren van een alternatieve `ItemService`
 In deze opgave maak je een tweede klasse maken die de interface `ItemService` implementeert. Vervolgens configureer je via de `beans.xml` welke van de twee implementaties te injecteren.
+
 
 ### 4.1 Een tweede implementatie
 Maak een tweede klasse die de interface `ItemService` implementeert. Zorg voor een zinnige implementatie.
